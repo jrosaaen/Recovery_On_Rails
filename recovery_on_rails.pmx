@@ -1,0 +1,30 @@
+---
+name: Recovery_On_Rails
+description: Panamax build of Rails with Postgres inside of a Docker container. This
+  is the first build in order to learn how to make a rails app in a docker container.
+  Next one will be a separate container for database only.
+keywords: ''
+type: Rails
+documentation: |
+  Rails with PostgreSQL
+  =========
+
+  To view the GUI after launching the template, browse to http://panamax.local:8080.
+images:
+- name: DB_1
+  source: dharmamike/pmx-pgsql:latest
+  category: DB Tier
+  type: Default
+  ports:
+  - host_port: '5432'
+    container_port: '5432'
+- name: Rails
+  source: dharmamike/pmx-rails:latest
+  category: Web Tier
+  type: Default
+  ports:
+  - host_port: '8080'
+    container_port: '3000'
+  links:
+  - service: DB_1
+    alias: DB_1
